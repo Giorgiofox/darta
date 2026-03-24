@@ -1,0 +1,158 @@
+{
+  "framework": {
+    "name": "DARTA",
+    "full_name": "Drone Attack Research and Tactic Analysis",
+    "version": "0.1.0",
+    "status": "draft",
+    "release_date": "2026-03-24",
+    "description": "A structured TTP framework for Unmanned Aerial Systems cybersecurity.",
+    "license": "CC-BY-4.0",
+    "url": "https://darta-framework.org"
+  },
+  "platforms": [
+    { "id": "consumer",   "name": "Consumer / Hobbyist UAS" },
+    { "id": "enterprise", "name": "Enterprise / Professional UAS" },
+    { "id": "military",   "name": "Military Tactical UAS" },
+    { "id": "gcs",        "name": "Ground Control Station" },
+    { "id": "utm",        "name": "UTM / U-Space Infrastructure" },
+    { "id": "swarm",      "name": "Swarm / Autonomous Systems" },
+    { "id": "all",        "name": "All Platforms" }
+  ],
+  "actor_tiers": [
+    { "id": "L1", "name": "Opportunistic / Low-Skill",  "description": "Consumer-grade hardware, open-source tools, no specialized training." },
+    { "id": "L2", "name": "Technically Capable",        "description": "SDR capability, custom exploit development, RF engineering and software penetration testing skills." },
+    { "id": "L3", "name": "Nation-State / Advanced",    "description": "Teams of specialists, classified exploit development, hardware implants, large-scale RF attack infrastructure." }
+  ],
+  "tactics": [
+    {
+      "id": "TA001", "name": "Reconnaissance", "short": "RECON",
+      "description": "The adversary collects information about target UAS platforms, operators, communication infrastructure, mission profiles, and supply chain.",
+      "techniques": [
+        { "id": "T001.001", "name": "UAS Platform Identification",            "platforms": ["all"],                              "actor_min": "L1", "sub_techniques": ["Firmware version enumeration via OTA traffic", "Autopilot identification (ArduPilot, PX4, DJI)", "Hardware component OSINT", "RF signature and modulation analysis"] },
+        { "id": "T001.002", "name": "Operator and Mission Profiling",         "platforms": ["all"],                              "actor_min": "L1", "sub_techniques": ["Remote ID broadcast interception", "FAA/EASA registration lookup", "Social media and flight log OSINT", "Physical observation of launch zones"] },
+        { "id": "T001.003", "name": "Communication Protocol Reconnaissance",  "platforms": ["consumer","enterprise","military"],  "actor_min": "L1", "sub_techniques": ["MAVLink traffic passive capture", "DJI OcuSync/Lightbridge RF scanning", "C2 frequency hopping pattern analysis", "Video downlink identification"] },
+        { "id": "T001.004", "name": "GCS and Backend Infrastructure Mapping", "platforms": ["gcs","utm"],                        "actor_min": "L2", "sub_techniques": ["GCS software fingerprinting", "UTM/U-Space API endpoint discovery", "Cloud service enumeration", "VPN and authentication mechanism detection"] },
+        { "id": "T001.005", "name": "Supply Chain and Component Research",    "platforms": ["all"],                              "actor_min": "L2", "sub_techniques": ["Component provenance research", "CVE enumeration against autopilot/GCS software", "Third-party library dependency mapping", "Manufacturing chain analysis"] },
+        { "id": "T001.006", "name": "Swarm Architecture Discovery",           "platforms": ["swarm"],                            "actor_min": "L2", "sub_techniques": ["Mesh network topology inference", "Leader node identification", "Swarm coordination protocol analysis", "Timing and synchronization pattern extraction"] }
+      ]
+    },
+    {
+      "id": "TA002", "name": "Resource Development", "short": "RES-DEV",
+      "description": "The adversary acquires, develops, or stages capabilities required to execute an attack against UAS systems.",
+      "techniques": [
+        { "id": "T002.001", "name": "Acquire RF Attack Infrastructure",        "platforms": ["all"],       "actor_min": "L1", "sub_techniques": ["SDR hardware procurement (HackRF, USRP, RTL-SDR)", "High-gain directional antenna assembly", "GPS/GNSS spoofing device construction", "Commercial jammer acquisition"] },
+        { "id": "T002.002", "name": "Develop or Acquire Exploit Capabilities", "platforms": ["all"],       "actor_min": "L2", "sub_techniques": ["MAVLink protocol exploit development", "GCS software vulnerability exploitation", "Firmware extraction and RE toolchain", "UTM API fuzzing and exploitation"] },
+        { "id": "T002.003", "name": "Obtain or Modify a Rogue UAS",            "platforms": ["all"],       "actor_min": "L1", "sub_techniques": ["Commercial drone modification", "Compromised friendly drone repurposing", "FPV platform adaptation for payload delivery"] },
+        { "id": "T002.004", "name": "Develop Malicious Firmware or Software",  "platforms": ["all"],       "actor_min": "L2", "sub_techniques": ["Trojanized autopilot firmware build", "Malicious GCS plugin development", "Backdoored parameter file creation", "Supply chain implant development"] },
+        { "id": "T002.005", "name": "Stage Attack Infrastructure",             "platforms": ["gcs","utm"], "actor_min": "L2", "sub_techniques": ["Rogue GCS deployment", "MITM relay infrastructure setup", "Fake UTM/U-Space endpoint staging", "Encrypted adversarial C2 channel"] }
+      ]
+    },
+    {
+      "id": "TA003", "name": "Initial Access", "short": "INIT-ACC",
+      "description": "The adversary gains an initial foothold into the UAS ecosystem.",
+      "techniques": [
+        { "id": "T003.001", "name": "RF Command Link Hijacking",           "platforms": ["consumer","enterprise","military"], "actor_min": "L2", "sub_techniques": ["MAVLink unauthenticated command injection", "RC protocol replay (SBUS, CRSF, ExpressLRS)", "DJI control link takeover", "RF signal overpowering"] },
+        { "id": "T003.002", "name": "GNSS Spoofing",                       "platforms": ["all"],                             "actor_min": "L2", "sub_techniques": ["Civil GPS L1 C/A spoofing", "Multi-constellation spoofing", "Meaconing (signal rebroadcast)", "Time spoofing for mission disruption"] },
+        { "id": "T003.003", "name": "GCS Network Compromise",              "platforms": ["gcs","utm"],                       "actor_min": "L2", "sub_techniques": ["GCS software RCE exploitation", "Operator workstation compromise via phishing", "Wi-Fi lateral access to GCS subnet", "VPN credential theft"] },
+        { "id": "T003.004", "name": "Supply Chain Compromise",             "platforms": ["all"],                             "actor_min": "L3", "sub_techniques": ["Trojanized firmware via update server", "Compromised autopilot hardware", "Malicious component insertion", "Tampered distribution channel"] },
+        { "id": "T003.005", "name": "Physical Interface Exploitation",     "platforms": ["all"],                             "actor_min": "L1", "sub_techniques": ["UART / JTAG / SWD debug port access", "USB firmware flashing exploit", "microSD card payload injection", "Boot sequence manipulation"] },
+        { "id": "T003.006", "name": "UTM / U-Space API Abuse",            "platforms": ["gcs","utm"],                       "actor_min": "L2", "sub_techniques": ["Weak API authentication exploitation", "Unauthorized flight plan injection", "False airspace reservation", "Remote ID spoofing via UTM API"] },
+        { "id": "T003.007", "name": "Rogue Ground Station Deployment",    "platforms": ["consumer","enterprise"],            "actor_min": "L2", "sub_techniques": ["GCS impersonation via stronger RF signal", "Wi-Fi SSID spoofing", "Rogue telemetry gateway injection"] },
+        { "id": "T003.008", "name": "Swarm Entry via Compromised Node",   "platforms": ["swarm"],                           "actor_min": "L2", "sub_techniques": ["Mesh network injection via single node", "Swarm join protocol exploitation", "Rogue node insertion into swarm topology"] }
+      ]
+    },
+    {
+      "id": "TA004", "name": "Execution", "short": "EXEC",
+      "description": "The adversary executes malicious actions on compromised UAS systems, GCS software, or autonomous decision-making components.",
+      "techniques": [
+        { "id": "T004.001", "name": "Malicious Command Injection",   "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["MAVLink SET_MODE / SET_POSITION injection", "RC override channel injection", "Waypoint table overwrite", "Forced RTL / Land / Disarm command"] },
+        { "id": "T004.002", "name": "Firmware Exploitation",         "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["Buffer overflow in MAVLink parser", "Code execution via crafted parameter upload", "Bootloader exploit", "RTOS task injection"] },
+        { "id": "T004.003", "name": "Malicious Code Deployment",     "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["Ransomware targeting mission data", "Wiper payload targeting flight logs", "Rootkit on companion computer", "Bootkit for persistent control"] },
+        { "id": "T004.004", "name": "Sensor Data Manipulation",      "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["IMU accelerometer/gyroscope injection", "Barometer altitude spoofing", "Optical flow sensor manipulation", "LiDAR / proximity sensor blinding"] },
+        { "id": "T004.005", "name": "AI and ML Model Exploitation",  "platforms": ["swarm"],                "actor_min": "L3", "sub_techniques": ["Training data poisoning", "Adversarial input injection at inference", "Model weight corruption", "Swarm consensus algorithm manipulation"] },
+        { "id": "T004.006", "name": "Time-Triggered Execution",      "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["Absolute time trigger using GPS UTC", "Relative mission phase trigger", "Geo-fenced position-based execution"] },
+        { "id": "T004.007", "name": "Replay Attack",                 "platforms": ["consumer","enterprise"],"actor_min": "L1", "sub_techniques": ["Command packet replay", "Telemetry frame replay to deceive GCS", "Authentication token replay"] }
+      ]
+    },
+    {
+      "id": "TA005", "name": "Persistence", "short": "PERSIST",
+      "description": "The adversary maintains long-term access to compromised UAS systems or infrastructure.",
+      "techniques": [
+        { "id": "T005.001", "name": "Firmware Implant",              "platforms": ["all"],       "actor_min": "L3", "sub_techniques": ["Autopilot firmware backdoor", "Companion computer persistent implant", "Bootloader-level persistence", "Signed firmware bypass"] },
+        { "id": "T005.002", "name": "Parameter Store Manipulation",  "platforms": ["all"],       "actor_min": "L2", "sub_techniques": ["EEPROM/flash parameter corruption", "Fail-safe behavior redefinition", "Geofence boundary removal", "Authentication credential replacement"] },
+        { "id": "T005.003", "name": "GCS Persistence",              "platforms": ["gcs","utm"], "actor_min": "L2", "sub_techniques": ["Malicious GCS plugin auto-load", "OS-level persistence (cron, systemd, registry)", "Credential harvesting implant", "Remote access trojan on GCS host"] },
+        { "id": "T005.004", "name": "Cloud Backend Persistence",     "platforms": ["gcs","utm"], "actor_min": "L2", "sub_techniques": ["API key theft and reuse", "OAuth refresh token persistence", "Cloud function backdoor", "Database credential persistence"] },
+        { "id": "T005.005", "name": "Swarm Node Persistence",        "platforms": ["swarm"],     "actor_min": "L3", "sub_techniques": ["Persistent mesh network implant", "Swarm coordination protocol backdoor", "Node identity spoofing for re-insertion"] }
+      ]
+    },
+    {
+      "id": "TA006", "name": "Defense Evasion", "short": "DEF-EVA",
+      "description": "The adversary avoids detection by operators, C-UAS sensors, RF monitoring, or automated anomaly detection.",
+      "techniques": [
+        { "id": "T006.001", "name": "Telemetry Manipulation",             "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["Altitude/position falsification", "Battery level spoofing", "Mode status concealment", "Error flag suppression in downlink"] },
+        { "id": "T006.002", "name": "Remote ID Suppression or Spoofing",  "platforms": ["consumer","enterprise"], "actor_min": "L1", "sub_techniques": ["RID broadcast suppression", "False operator ID injection", "False serial number broadcast", "RID frequency jamming"] },
+        { "id": "T006.003", "name": "RF Emission Minimization",           "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["Pre-programmed autonomous mission with no active RF C2", "Frequency hopping to avoid monitoring", "Directional antenna for reduced RF footprint", "Low-power transmission during approach"] },
+        { "id": "T006.004", "name": "Onboard Log Manipulation",           "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["SD card flight log deletion", "ArduPilot DataFlash log corruption", "PX4 ulog manipulation", "Timestamp falsification"] },
+        { "id": "T006.005", "name": "Safe Mode Exploitation",             "platforms": ["all"],                  "actor_min": "L2", "sub_techniques": ["Unauthorized command injection during failsafe", "Safe mode parameter modification", "Recovery mode firmware replacement"] },
+        { "id": "T006.006", "name": "Physical Signature Reduction",       "platforms": ["military","swarm"],     "actor_min": "L3", "sub_techniques": ["Low-RPM acoustic reduction", "Thermal signature minimization", "Counter-optical operation", "Terrain masking flight profile"] }
+      ]
+    },
+    {
+      "id": "TA007", "name": "Lateral Movement", "short": "LAT-MOV",
+      "description": "The adversary moves from an initial foothold to adjacent systems, drone platforms, GCS infrastructure, or enterprise networks.",
+      "techniques": [
+        { "id": "T007.001", "name": "GCS to Fleet Propagation",               "platforms": ["gcs","utm"],           "actor_min": "L2", "sub_techniques": ["Fleet management API abuse", "Shared credential reuse across fleet", "Mission template poisoning"] },
+        { "id": "T007.002", "name": "Swarm Node Hopping",                     "platforms": ["swarm"],               "actor_min": "L2", "sub_techniques": ["Mesh worm self-propagation", "Swarm broadcast channel hijacking", "Consensus algorithm poisoning"] },
+        { "id": "T007.003", "name": "Drone to Enterprise Network Pivot",      "platforms": ["enterprise","gcs"],    "actor_min": "L2", "sub_techniques": ["Wi-Fi credential harvesting at docking station", "USB-based pivot to GCS host OS", "VPN tunnel abuse for network access"] },
+        { "id": "T007.004", "name": "UTM Federation Abuse",                   "platforms": ["gcs","utm"],           "actor_min": "L3", "sub_techniques": ["Cross-UTM provider data injection", "Federation trust exploitation", "Airspace data poisoning across providers"] },
+        { "id": "T007.005", "name": "Companion Computer to Autopilot Pivot",  "platforms": ["enterprise","military"],"actor_min": "L2", "sub_techniques": ["MAVLink pivot from companion to flight controller", "UART/USB bridge exploitation", "Parameter modification via companion interface"] }
+      ]
+    },
+    {
+      "id": "TA008", "name": "Collection and Exfiltration", "short": "EXFIL",
+      "description": "The adversary intercepts or exfiltrates data from UAS systems.",
+      "techniques": [
+        { "id": "T008.001", "name": "Video Feed Interception",               "platforms": ["consumer","enterprise","military"], "actor_min": "L1", "sub_techniques": ["DJI OcuSync video downlink capture", "Analog FPV feed capture via SDR", "H.264/H.265 stream interception", "IR/thermal video feed interception"] },
+        { "id": "T008.002", "name": "Telemetry Stream Interception",         "platforms": ["all"],                             "actor_min": "L1", "sub_techniques": ["MAVLink telemetry passive RF capture", "Proprietary protocol capture after RE", "APRS-based telemetry interception"] },
+        { "id": "T008.003", "name": "Mission Data Exfiltration",             "platforms": ["all"],                             "actor_min": "L2", "sub_techniques": ["Physical SD card extraction", "GCS database exfiltration", "Cloud-synced mission data access", "Survey and mapping data theft"] },
+        { "id": "T008.004", "name": "Specialized Payload Data Interception", "platforms": ["enterprise","military"],           "actor_min": "L2", "sub_techniques": ["Multispectral/hyperspectral imagery theft", "LiDAR point cloud exfiltration", "SIGINT payload data intercept", "SAR data exfiltration"] },
+        { "id": "T008.005", "name": "Side-Channel Data Extraction",          "platforms": ["all"],                             "actor_min": "L3", "sub_techniques": ["Power analysis of cryptographic operations", "EM leakage from flight controller", "Timing side-channel on authentication"] }
+      ]
+    },
+    {
+      "id": "TA009", "name": "Impact", "short": "IMPACT",
+      "description": "The adversary causes direct physical, operational, or informational harm.",
+      "techniques": [
+        { "id": "T009.001", "name": "Drone Hijacking",                      "platforms": ["all"],                 "actor_min": "L2", "sub_techniques": ["Complete C2 link seizure", "Waypoint injection for rerouting", "Forced landing at adversary-controlled site", "Forced loiter / mission denial"] },
+        { "id": "T009.002", "name": "Forced Crash or Destruction",          "platforms": ["all"],                 "actor_min": "L2", "sub_techniques": ["Motor disarm command injection in flight", "GPS spoofing toward terrain", "Pitch/roll limit removal", "Altitude floor removal over hazards"] },
+        { "id": "T009.003", "name": "Mission Disruption and Denial",        "platforms": ["all"],                 "actor_min": "L1", "sub_techniques": ["RF uplink jamming", "GPS denial forcing RTL/landing", "Geofence injection restricting flight area", "Persistent noise floor elevation"] },
+        { "id": "T009.004", "name": "Weaponization and Payload Delivery",   "platforms": ["military","consumer"], "actor_min": "L1", "sub_techniques": ["Explosive payload delivery", "CBRN agent dispersal", "Electronic warfare device drop", "Kinetic strike via controlled collision"] },
+        { "id": "T009.005", "name": "Data Destruction",                     "platforms": ["all"],                 "actor_min": "L2", "sub_techniques": ["Onboard storage wipe", "GCS database corruption", "Cloud backup deletion via API", "Cryptographic key destruction"] },
+        { "id": "T009.006", "name": "Infrastructure Attack via UAS Vector", "platforms": ["military","swarm"],    "actor_min": "L2", "sub_techniques": ["Physical collision with critical infrastructure", "Covert RF eavesdropping device placement", "Cyber attack payload delivery", "Communications relay disruption"] }
+      ]
+    }
+  ],
+  "countermeasures": [
+    { "id": "CM-001", "name": "Encrypted and Authenticated C2 Link",        "tactic_ids": ["TA003","TA004"],         "refs": ["NIST SP 800-53 SC-8","DO-326A Sec 6.2","EUROCAE ED-202A","STANAG 4586"] },
+    { "id": "CM-002", "name": "GNSS Anti-Spoofing and Anti-Jamming",        "tactic_ids": ["TA003","TA009"],         "refs": ["NIST SP 800-53 SI-10","RTCA DO-316","ICAO Annex 10","FAA AC 20-138E"] },
+    { "id": "CM-003", "name": "Firmware Integrity and Secure Boot",          "tactic_ids": ["TA003","TA005"],         "refs": ["NIST SP 800-53 SI-7","NIST SP 800-193","DO-326A","IEC 62443-4-2 CR 3.4"] },
+    { "id": "CM-004", "name": "Remote ID Broadcast Integrity",               "tactic_ids": ["TA006"],                 "refs": ["ASTM F3411-22","EU Reg. 2019/945","FAA Part 89","NIST SP 800-53 IA-3"] },
+    { "id": "CM-005", "name": "UTM and U-Space API Authentication",          "tactic_ids": ["TA003","TA007"],         "refs": ["NIST SP 800-53 IA-2","EUROCAE ED-269","SESAR U-Space Spec","ISO/IEC 27001 A.9"] },
+    { "id": "CM-006", "name": "Onboard Behavioral Anomaly Detection",        "tactic_ids": ["TA004","TA006"],         "refs": ["NIST SP 800-53 SI-4","DO-178C","IEC 62443-3-3 SR 6.1"] },
+    { "id": "CM-007", "name": "Physical Debug Interface Protection",          "tactic_ids": ["TA003","TA005"],         "refs": ["NIST SP 800-53 AC-3","IEC 62443-4-2 CR 1.1","NIST SP 800-193","DO-326A Sec 5"] },
+    { "id": "CM-008", "name": "GCS Network Segmentation and Hardening",      "tactic_ids": ["TA003","TA005","TA007"], "refs": ["NIST SP 800-53 SC-7","CIS Controls v8 Control 12","ISO/IEC 27001 A.13"] },
+    { "id": "CM-009", "name": "UAS Supply Chain Risk Management",            "tactic_ids": ["TA002","TA003"],         "refs": ["NIST SP 800-161r1","NIST SP 800-53 SR-3","US NDAA Sec. 848","EU Cyber Resilience Act"] },
+    { "id": "CM-010", "name": "Swarm Node Mutual Authentication",            "tactic_ids": ["TA003","TA005","TA007"], "refs": ["NIST SP 800-53 IA-3","IEEE 1609.2","STANAG 4586","IEC 62443-3-3 SR 1.2"] },
+    { "id": "CM-011", "name": "Tamper-Resistant Geofencing",                 "tactic_ids": ["TA004","TA009"],         "refs": ["EU Reg. 2019/945","FAA Part 107","ASTM F3322","NIST SP 800-53 SI-10"] },
+    { "id": "CM-012", "name": "Onboard Data Encryption and Secure Storage",  "tactic_ids": ["TA008"],                 "refs": ["NIST SP 800-53 SC-28","ISO/IEC 27001 A.10","DO-326A","NIST SP 800-111"] },
+    { "id": "CM-013", "name": "Incident Response and Forensic Readiness",    "tactic_ids": ["TA009"],                 "refs": ["NIST SP 800-53 IR-4","NIST SP 800-86","ASTM F3388","NIS2 Directive Art. 23"] }
+  ],
+  "statistics": {
+    "tactics": 9,
+    "techniques": 57,
+    "sub_techniques": 228,
+    "countermeasures": 13,
+    "platforms": 5,
+    "actor_tiers": 3
+  }
+}
