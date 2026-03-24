@@ -649,15 +649,10 @@ export default function App() {
             </button>
           ))}
         </div>
-        <button className="btn-secondary" style={{fontSize:"12px", padding:"0.4rem 1rem"}}
-          onClick={() => {
-            const a = document.createElement("a");
-            a.href = "data:application/octet-stream,DARTA%20v0.1%20-%20Download%20from%20document%20section";
-            a.download = "DARTA_v0.1_placeholder.txt";
-            a.click();
-          }}>
+        <a className="btn-secondary" style={{fontSize:"12px", padding:"0.4rem 1rem", textDecoration:"none"}}
+          href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.pdf" download>
           ↓ Download v0.1
-        </button>
+        </a>
       </nav>
 
       {/* VIEWS */}
@@ -1093,8 +1088,8 @@ function AboutView() {
             <div className="about-card-title">Download</div>
             <div className="about-card-text" style={{marginBottom:"1rem"}}>DARTA v0.1 is available as a structured Word document with complete tactics, techniques, countermeasures, regulatory landscape, and usage guide.</div>
             <a className="btn-primary" style={{width:"100%", display:"block", textAlign:"center", textDecoration:"none"}}
-              href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.docx" download>
-              ↓ Download DARTA v0.1 (.docx)
+              href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.pdf" download>
+              ↓ Download DARTA v0.1 (.pdf)
             </a>
           </div>
         </div>
