@@ -374,9 +374,11 @@ const css = `
     margin-bottom: 0.5rem;
   }
   .hero-subtitle {
-    font-family: var(--mono); font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-    color: var(--text2); letter-spacing: 0.15em; text-transform: uppercase;
-    margin-bottom: 2rem;
+    font-family: var(--mono); font-size: clamp(1rem, 2.8vw, 1.8rem);
+    color: var(--text2); letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 2rem; width: 100%; display: block; text-align: center;
+    padding: 0.75rem 1.5rem; box-sizing: border-box;
+    border: 1px solid rgba(74,158,255,0.3); border-radius: 8px;
   }
   .hero-desc {
     font-size: 1.1rem; color: var(--text2); max-width: 620px;
