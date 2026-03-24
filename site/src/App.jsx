@@ -1092,9 +1092,10 @@ function AboutView() {
           <div className="about-card">
             <div className="about-card-title">Download</div>
             <div className="about-card-text" style={{marginBottom:"1rem"}}>DARTA v0.1 is available as a structured Word document with complete tactics, techniques, countermeasures, regulatory landscape, and usage guide.</div>
-            <button className="btn-primary" style={{width:"100%"}} onClick={() => alert("Place your DARTA_v0.1.docx file in the same directory and link it here.")}>
+            <a className="btn-primary" style={{width:"100%", display:"block", textAlign:"center", textDecoration:"none"}}
+              href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.docx" download>
               ↓ Download DARTA v0.1 (.docx)
-            </button>
+            </a>
           </div>
         </div>
       </div>
