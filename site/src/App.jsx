@@ -672,7 +672,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="footer-logo">DARTA</div>
-        <div className="footer-text">Drone Attack Research and Tactic Analysis — v0.1 Draft — March 2026</div>
+        <div className="footer-text">Drone Attack Research and Tactic Analysis by Giorgio Campiotti — v0.1 Draft — March 2026</div>
         <div className="footer-badge">UNCLASSIFIED — FOR RESEARCH AND EDUCATIONAL PURPOSES</div>
       </footer>
     </div>
@@ -754,17 +754,20 @@ function HomeView({ goToMatrix, goToTactics, totalTechs, totalSubs, goToTactic }
         </p>
         <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))", gap:"1rem"}}>
           {[
-            {name:"MITRE ATT&CK", role:"Structural conventions, TTP taxonomy approach"},
-            {name:"SPARTA", role:"Direct analog — spacecraft domain, methodology source"},
-            {name:"DroneSec", role:"Real-world UAS incident intelligence baseline"},
-            {name:"NIST SP 800-53", role:"Countermeasure control mapping"},
-            {name:"DO-326A / ED-202A", role:"Aviation cybersecurity process standards"},
-            {name:"ASTM F38", role:"UAS-specific standards (Remote ID, forensics)"},
+            {name:"MITRE ATT&CK", role:"Structural conventions, TTP taxonomy approach", url:"https://attack.mitre.org"},
+            {name:"SPARTA", role:"Direct analog — spacecraft domain, methodology source", url:"https://sparta.aerospace.org"},
+            {name:"DroneSec", role:"Real-world UAS incident intelligence baseline", url:"https://dronesec.com"},
+            {name:"NIST SP 800-53", role:"Countermeasure control mapping", url:"https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final"},
+            {name:"DO-326A / ED-202A", role:"Aviation cybersecurity process standards", url:"https://eurocae.net/news/posts/2019/march/eurocae-ed-202a-update/"},
+            {name:"ASTM F38", role:"UAS-specific standards (Remote ID, forensics)", url:"https://www.astm.org/committee-f38.html"},
           ].map(r => (
-            <div key={r.name} style={{background:"var(--bg2)", border:"1px solid var(--border)", borderRadius:"8px", padding:"1rem"}}>
-              <div style={{fontFamily:"var(--mono)", fontSize:"12px", color:"var(--accent)", marginBottom:"0.4rem"}}>{r.name}</div>
+            <a key={r.name} href={r.url} target="_blank" rel="noopener noreferrer"
+              style={{background:"var(--bg2)", border:"1px solid var(--border)", borderRadius:"8px", padding:"1rem", display:"block", textDecoration:"none", transition:"border-color 0.15s, transform 0.15s"}}
+              onMouseEnter={e => { e.currentTarget.style.borderColor="var(--border2)"; e.currentTarget.style.transform="translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor="var(--border)"; e.currentTarget.style.transform="translateY(0)"; }}>
+              <div style={{fontFamily:"var(--mono)", fontSize:"12px", color:"var(--accent)", marginBottom:"0.4rem"}}>{r.name} ↗</div>
               <div style={{fontSize:"12px", color:"var(--text2)", lineHeight:"1.5"}}>{r.role}</div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
@@ -1053,29 +1056,25 @@ function AboutView() {
       <div className="section-header">
         <div className="section-label">Framework</div>
         <h2 className="section-title">About DARTA</h2>
-        <p className="section-desc">Drone Attack Research and Tactic Analysis — an open-source TTP framework for the UAS cybersecurity community.</p>
+        <p className="section-desc">Drone Attack Research and Tactic Analysis by Giorgio Campiotti — an open-source TTP framework for the UAS cybersecurity community.</p>
       </div>
       <div className="about-grid">
         <div>
           <div className="about-card" style={{marginBottom:"1rem"}}>
-            <div className="about-card-icon">⚡</div>
             <div className="about-card-title">What is DARTA?</div>
             <div className="about-card-text">DARTA is a structured, open-source threat framework cataloging the adversarial Tactics, Techniques, and Procedures (TTPs) applicable to Unmanned Aerial Systems across civil, commercial, and military domains. It provides a common language for UAS security practitioners, operators, regulators, manufacturers, and red teams.</div>
           </div>
           <div className="about-card" style={{marginBottom:"1rem"}}>
-            <div className="about-card-icon">🎯</div>
             <div className="about-card-title">Who is it for?</div>
             <div className="about-card-text">Security engineers conducting UAS threat models, red teams scoping drone security assessments, standards bodies developing UAS cybersecurity regulations, manufacturers implementing security by design, and operators assessing their exposure across civil and military contexts.</div>
           </div>
           <div className="about-card">
-            <div className="about-card-icon">⚠️</div>
             <div className="about-card-title">Disclaimer</div>
             <div className="about-card-text">DARTA is unclassified and released for research and educational purposes. Nothing herein constitutes authorization to perform offensive activities against UAS systems. DARTA is not affiliated with MITRE Corporation or The Aerospace Corporation.</div>
           </div>
         </div>
         <div>
           <div className="about-card" style={{marginBottom:"1rem"}}>
-            <div className="about-card-icon">🗺️</div>
             <div className="about-card-title">Roadmap</div>
             <div className="about-card-text" style={{marginBottom:"1rem"}}>DARTA v0.1 establishes the foundational framework. Planned future versions:</div>
             {[
@@ -1091,7 +1090,6 @@ function AboutView() {
             ))}
           </div>
           <div className="about-card">
-            <div className="about-card-icon">📥</div>
             <div className="about-card-title">Download</div>
             <div className="about-card-text" style={{marginBottom:"1rem"}}>DARTA v0.1 is available as a structured Word document with complete tactics, techniques, countermeasures, regulatory landscape, and usage guide.</div>
             <button className="btn-primary" style={{width:"100%"}} onClick={() => alert("Place your DARTA_v0.1.docx file in the same directory and link it here.")}>
