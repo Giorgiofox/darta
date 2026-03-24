@@ -755,6 +755,7 @@ function HomeView({ goToMatrix, goToTactics, totalTechs, totalSubs, goToTactic }
             {name:"NIST SP 800-53", role:"Countermeasure control mapping", url:"https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final"},
             {name:"DO-326A / ED-202A", role:"Aviation cybersecurity process standards", url:"https://eurocae.net/news/posts/2019/march/eurocae-ed-202a-update/"},
             {name:"ASTM F38", role:"UAS-specific standards (Remote ID, forensics)", url:"https://www.astm.org/committee-f38.html"},
+            {name:"OCSF 1.8.0", role:"Unmanned Systems event schema — drone_flights_activity & airborne_broadcast_activity (Category 8)", url:"https://schema.ocsf.io/1.8.0/categories/unmanned_systems"},
           ].map(r => (
             <a key={r.name} href={r.url} target="_blank" rel="noopener noreferrer"
               style={{background:"var(--bg2)", border:"1px solid var(--border)", borderRadius:"8px", padding:"1rem", display:"block", textDecoration:"none", transition:"border-color 0.15s, transform 0.15s"}}
@@ -1012,7 +1013,7 @@ function CountermeasuresView() {
       <div className="section-header">
         <div className="section-label">Defensive Controls</div>
         <h2 className="section-title">Countermeasures</h2>
-        <p className="section-desc">Thirteen defensive controls mapped to NIST SP 800-53, DO-326A, ASTM F38, STANAG 4586, and regulatory frameworks including EU U-Space, NIS2, and the Cyber Resilience Act.</p>
+        <p className="section-desc">Thirteen defensive controls mapped to NIST SP 800-53, DO-326A, ASTM F38, OCSF 1.8.0, STANAG 4586, and regulatory frameworks including EU U-Space, NIS2, and the Cyber Resilience Act.</p>
       </div>
       <div className="cm-grid">
         {COUNTERMEASURES.map(cm => (
