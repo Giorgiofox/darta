@@ -582,12 +582,36 @@ const css = `
   @media(max-width:1100px){
     .matrix-grid { grid-template-columns: repeat(3,1fr); }
   }
+  @media(max-width:800px){
+    .nav { gap: 0.5rem; padding: 0 0.75rem; }
+    .nav-links { overflow-x: auto; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-btn { font-size: 11px; padding: 0.3rem 0.55rem; white-space: nowrap; }
+    .hero { padding: 5rem 1.25rem 3rem; }
+    .hero-subtitle { white-space: normal; letter-spacing: 0.06em; }
+    .section { padding: 3rem 1.25rem; }
+    .tactic-page { padding: 4rem 1.25rem 3rem; }
+    .technique-page { padding: 4rem 1.25rem 3rem; }
+    .cm-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .footer { flex-direction: column; align-items: flex-start; }
+    .detail-body { grid-template-columns: 1fr; }
+  }
   @media(max-width:700px){
     .matrix-grid { grid-template-columns: repeat(2,1fr); }
     .hero-stats { gap: 1.5rem; }
+    .cm-grid { grid-template-columns: 1fr; }
   }
   @media(max-width:500px){
     .matrix-grid { grid-template-columns: 1fr; }
+    .nav .btn-secondary { display: none; }
+    .hero { padding: 4.5rem 1rem 2.5rem; }
+    .hero-subtitle { font-size: 0.85rem; letter-spacing: 0.04em; }
+    .hero-stat-num { font-size: 2rem; }
+    .hero-stats { gap: 1rem; }
+    .overview-grid { grid-template-columns: 1fr; }
+    .section { padding: 2.5rem 1rem; }
+    .tactic-page { padding: 3.5rem 1rem 2.5rem; }
+    .technique-page { padding: 3.5rem 1rem 2.5rem; }
   }
 `;
 
