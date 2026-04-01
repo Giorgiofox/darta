@@ -733,7 +733,7 @@ export default function App() {
         </div>
         <a className="btn-secondary" style={{fontSize:"12px", padding:"0.4rem 1rem", textDecoration:"none"}}
           href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.pdf" download>
-          ↓ Download v0.1
+          ↓ Download v1.1
         </a>
       </nav>
 
@@ -750,7 +750,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="footer-logo">DARTA</div>
-        <div className="footer-text">Drone Attack Research and Tactic Analysis by Giorgio Campiotti — v0.1 Draft — March 2026</div>
+        <div className="footer-text">Drone Attack Research and Tactic Analysis by Giorgio Campiotti — v1.1 — April 2026</div>
         <div className="footer-badge">UNCLASSIFIED — FOR RESEARCH AND EDUCATIONAL PURPOSES</div>
       </footer>
     </div>
@@ -766,7 +766,7 @@ function HomeView({ goToMatrix, goToTactics, totalTechs, totalSubs, goToTactic }
         <div className="hero-content">
           <div className="hero-badge">
             <div className="hero-badge-dot" />
-            v0.1 Draft — Community Review Open
+            v1.1 — Community Review Open
           </div>
           <h1 className="hero-title">DARTA</h1>
           <p className="hero-subtitle">Drone Attack Research &amp; Tactic Analysis</p>
@@ -1292,7 +1292,7 @@ level: high`,
             ["platforms", "6"],
             ["actor_tiers", "3"],
             ["license", "CC-BY-4.0"],
-            ["version", "0.1.0"],
+            ["version", "1.1.0"],
           ].map(([k,v]) => (
             <div key={k}><span style={{color:"var(--text2)"}}>{k}</span>: <span style={{color:"var(--accent)"}}>{v}</span></div>
           ))}
@@ -1397,7 +1397,7 @@ function AboutView() {
           <div className="about-card" style={{marginBottom:"1rem"}}>
             <div className="about-card-title">Machine-Readable JSON</div>
             <div className="about-card-text" style={{marginBottom:"1rem"}}>
-              As of v0.1, DARTA is published as a structured JSON artifact alongside the PDF document. <code style={{fontFamily:"var(--mono)", fontSize:"12px", color:"var(--accent)", background:"var(--bg3)", padding:"0.1em 0.4em", borderRadius:"3px"}}>darta.json</code> contains the complete framework — all tactics, techniques, sub-techniques, platform scopes, actor tiers, and countermeasures — for direct integration into cyber range platforms, SOC tooling, SIEM detection pipelines, C-UAS systems, and red team workflows. CC-BY-4.0 licensed.
+              As of v1.1, DARTA is published as a structured JSON artifact alongside the PDF document. <code style={{fontFamily:"var(--mono)", fontSize:"12px", color:"var(--accent)", background:"var(--bg3)", padding:"0.1em 0.4em", borderRadius:"3px"}}>darta.json</code> contains the complete framework — all tactics, techniques, sub-techniques, platform scopes, actor tiers, and countermeasures — for direct integration into cyber range platforms, SOC tooling, SIEM detection pipelines, C-UAS systems, and red team workflows. CC-BY-4.0 licensed.
             </div>
             <a className="btn-secondary" href="/darta.json" download style={{textDecoration:"none", display:"inline-block", fontSize:"13px", padding:"0.5rem 1.2rem"}}>
               ↓ Download darta.json
@@ -1411,12 +1411,12 @@ function AboutView() {
         <div>
           <div className="about-card" style={{marginBottom:"1rem"}}>
             <div className="about-card-title">Roadmap</div>
-            <div className="about-card-text" style={{marginBottom:"1rem"}}>DARTA v0.1 establishes the foundational framework. Planned future versions:</div>
+            <div className="about-card-text" style={{marginBottom:"1rem"}}>DARTA v1.1 introduces machine-readable JSON integration. Planned future versions:</div>
             {[
-              {v:"v0.2", label:"Real-world incident validation — mapping of documented UAS security incidents to DARTA technique IDs"},
-              {v:"v0.3", label:"Detection guidance — per-technique IoC and sensor data source guidance for C-UAS operators"},
-              {v:"v0.4", label:"Directed energy and EW extension — complementing SPARTA coverage"},
-              {v:"v1.0", label:"Community validated release — expert advisory board review and formal public release"},
+              {v:"v1.2", label:"Real-world incident validation — mapping of documented UAS security incidents to DARTA technique IDs"},
+              {v:"v1.3", label:"Detection guidance — per-technique IoC and sensor data source guidance for C-UAS operators"},
+              {v:"v1.4", label:"Directed energy and EW extension — complementing SPARTA coverage"},
+              {v:"v2.0", label:"Community validated release — expert advisory board review and formal public release"},
             ].map(r => (
               <div key={r.v} style={{display:"flex", gap:"1rem", padding:"0.75rem 0", borderBottom:"1px solid var(--border)"}}>
                 <div style={{fontFamily:"var(--mono)", fontSize:"12px", color:"var(--accent)", flexShrink:0, paddingTop:"2px"}}>{r.v}</div>
@@ -1426,11 +1426,11 @@ function AboutView() {
           </div>
           <div className="about-card">
             <div className="about-card-title">Download</div>
-            <div className="about-card-text" style={{marginBottom:"1.25rem"}}>DARTA v0.1 is available as a PDF document with complete tactics, techniques, countermeasures, regulatory landscape, and usage guide — and as a machine-readable JSON artifact for tooling integration.</div>
+            <div className="about-card-text" style={{marginBottom:"1.25rem"}}>DARTA v1.1 is available as a PDF document with complete tactics, techniques, countermeasures, regulatory landscape, and usage guide — and as a machine-readable JSON artifact for tooling integration.</div>
             <div style={{display:"flex", flexDirection:"column", gap:"0.6rem"}}>
               <a className="btn-primary" style={{width:"100%", display:"block", textAlign:"center", textDecoration:"none"}}
                 href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.pdf" download>
-                ↓ Download DARTA v0.1 (.pdf)
+                ↓ Download DARTA v1.1 (.pdf)
               </a>
               <a className="btn-secondary" style={{width:"100%", display:"block", textAlign:"center", textDecoration:"none"}}
                 href="/darta.json" download>
