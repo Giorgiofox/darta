@@ -1134,37 +1134,31 @@ function IntegrateView() {
 
   const useCases = [
     {
-      icon: "🎯",
       title: "Cyber Range",
       desc: "Load DARTA techniques to automatically generate scenario objectives, inject realistic adversarial behavior sequences, and score participant responses against mapped TTPs.",
       tags: ["scenario generation", "red vs blue", "scoring", "exercise planning"],
     },
     {
-      icon: "🛡",
       title: "SOC / SIEM",
       desc: "Enrich security alerts with DARTA tactic and technique IDs. Map detection rules to framework phases and identify coverage gaps in your UAS monitoring posture.",
       tags: ["alert enrichment", "detection mapping", "SIEM rules", "gap analysis"],
     },
     {
-      icon: "📡",
       title: "C-UAS Systems",
       desc: "Tag RF, optical, and acoustic sensor detections with DARTA technique IDs to contextualize threat actor tier, likely platform scope, and associated countermeasures.",
       tags: ["threat profiling", "actor tier", "sensor fusion", "countermeasure mapping"],
     },
     {
-      icon: "🗡",
       title: "Red Team / Assessments",
       desc: "Scope UAS penetration testing engagements using DARTA tactics as a checklist. Reference technique IDs in findings reports for unambiguous, framework-aligned documentation.",
       tags: ["pentest scoping", "findings reports", "TTP coverage", "threat modeling"],
     },
     {
-      icon: "📊",
       title: "Threat Intelligence",
       desc: "Annotate CTI reports and incident timelines with DARTA technique IDs. Build actor profiles keyed to actor tier (L1–L3) and platform scope for structured threat libraries.",
       tags: ["CTI annotation", "actor profiling", "incident mapping", "structured reporting"],
     },
     {
-      icon: "🏭",
       title: "Manufacturer / Developer",
       desc: "Run DARTA-based threat modeling during UAS design reviews. Map mitigations to countermeasure IDs and track coverage across product lines and firmware versions.",
       tags: ["threat modeling", "design review", "security by design", "SBOM linkage"],
@@ -1312,7 +1306,6 @@ level: high`,
       <div className="use-case-grid" style={{marginBottom:"3rem"}}>
         {useCases.map(uc => (
           <div key={uc.title} className="use-case-card">
-            <div className="use-case-icon">{uc.icon}</div>
             <div className="use-case-title">{uc.title}</div>
             <div className="use-case-desc">{uc.desc}</div>
             <div className="use-case-tags">
@@ -1370,7 +1363,7 @@ level: high`,
 
       {/* License note */}
       <div style={{background:"rgba(74,158,255,0.05)", border:"1px solid rgba(74,158,255,0.15)", borderRadius:"10px", padding:"1.5rem", display:"flex", gap:"1rem", alignItems:"flex-start"}}>
-        <div style={{fontFamily:"var(--mono)", fontSize:"18px", flexShrink:0}}>©</div>
+        <div style={{fontFamily:"var(--mono)", fontSize:"11px", color:"var(--accent)", flexShrink:0, paddingTop:"2px"}}>CC-BY-4.0</div>
         <div>
           <div style={{fontWeight:"700", marginBottom:"0.4rem"}}>CC-BY-4.0 License</div>
           <div style={{fontSize:"13px", color:"var(--text2)", lineHeight:"1.7"}}>
