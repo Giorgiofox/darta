@@ -521,6 +521,63 @@ const css = `
   .about-card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
   .about-card-text { color: var(--text2); font-size: 14px; line-height: 1.7; }
 
+  /* INTEGRATE */
+  .integrate-hero {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+    padding: 2.5rem; margin-bottom: 3rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  }
+  .integrate-hero-text { flex: 1; min-width: 260px; }
+  .integrate-hero-title { font-size: clamp(1.4rem,3vw,2rem); font-weight: 800; margin-bottom: 0.75rem; }
+  .integrate-hero-desc { color: var(--text2); font-size: 14px; line-height: 1.7; max-width: 540px; }
+  .integrate-hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .integrate-url {
+    font-family: var(--mono); font-size: 12px; color: var(--text2);
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.6rem; margin-top: 1rem;
+    word-break: break-all;
+  }
+  .integrate-url span { color: var(--accent); flex-shrink: 0; }
+
+  .use-case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 1rem; margin-bottom: 3rem; }
+  .use-case-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem;
+    transition: all 0.2s;
+  }
+  .use-case-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .use-case-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+  .use-case-title { font-size: 15px; font-weight: 700; margin-bottom: 0.5rem; }
+  .use-case-desc { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 1rem; }
+  .use-case-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .use-case-tag { font-family: var(--mono); font-size: 10px; color: var(--text3); background: var(--bg4); border: 1px solid var(--border); padding: 0.2rem 0.5rem; border-radius: 3px; }
+
+  .snippet-tabs { display: flex; gap: 0.4rem; margin-bottom: 0; border-bottom: 1px solid var(--border); }
+  .snippet-tab {
+    background: none; border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; font-family: var(--mono); font-size: 12px; color: var(--text2);
+    padding: 0.5rem 1rem; transition: all 0.15s; margin-bottom: -1px;
+  }
+  .snippet-tab:hover { color: var(--text); }
+  .snippet-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .snippet-block {
+    background: var(--bg); border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 8px 8px; padding: 1.5rem; overflow-x: auto;
+    font-family: var(--mono); font-size: 12px; color: var(--text2); line-height: 1.8;
+    white-space: pre;
+  }
+  .snippet-kw { color: #C084FC; }
+  .snippet-str { color: #86EFAC; }
+  .snippet-cmt { color: var(--text3); font-style: italic; }
+  .snippet-fn { color: #7DD3FC; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .schema-table th { text-align: left; font-family: var(--mono); font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border2); }
+  .schema-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .schema-table td:first-child { font-family: var(--mono); font-size: 12px; color: var(--accent); white-space: nowrap; }
+  .schema-table td:nth-child(2) { color: var(--text3); font-family: var(--mono); font-size: 11px; }
+  .schema-table td:last-child { color: var(--text2); }
+
   /* FOOTER */
   .footer {
     border-top: 1px solid var(--border); padding: 2rem;
@@ -646,6 +703,7 @@ export default function App() {
     { id: "matrix", label: "Matrix" },
     { id: "tactics", label: "Tactics" },
     { id: "countermeasures", label: "Countermeasures" },
+    { id: "integrate", label: "Integrate" },
     { id: "about", label: "About" },
   ];
 
@@ -686,6 +744,7 @@ export default function App() {
       {view === "tactic" && activeTactic && <TacticDetailView tactic={activeTactic} goBack={() => setView("tactics")} goToTechnique={goToTechnique} />}
       {view === "technique" && activeTechnique && <TechniqueDetailView tech={activeTechnique} goBack={() => { setView("tactic"); }} countermeasures={COUNTERMEASURES.filter(c => c.tacticIds.includes(activeTechnique.tacticId))} />}
       {view === "countermeasures" && <CountermeasuresView />}
+      {view === "integrate" && <IntegrateView />}
       {view === "about" && <AboutView />}
 
       {/* FOOTER */}
@@ -1069,6 +1128,260 @@ function CountermeasuresView() {
   );
 }
 
+// ─── INTEGRATE VIEW ───────────────────────────────────────────────────────────
+function IntegrateView() {
+  const [activeSnippet, setActiveSnippet] = useState("curl");
+
+  const useCases = [
+    {
+      icon: "🎯",
+      title: "Cyber Range",
+      desc: "Load DARTA techniques to automatically generate scenario objectives, inject realistic adversarial behavior sequences, and score participant responses against mapped TTPs.",
+      tags: ["scenario generation", "red vs blue", "scoring", "exercise planning"],
+    },
+    {
+      icon: "🛡",
+      title: "SOC / SIEM",
+      desc: "Enrich security alerts with DARTA tactic and technique IDs. Map detection rules to framework phases and identify coverage gaps in your UAS monitoring posture.",
+      tags: ["alert enrichment", "detection mapping", "SIEM rules", "gap analysis"],
+    },
+    {
+      icon: "📡",
+      title: "C-UAS Systems",
+      desc: "Tag RF, optical, and acoustic sensor detections with DARTA technique IDs to contextualize threat actor tier, likely platform scope, and associated countermeasures.",
+      tags: ["threat profiling", "actor tier", "sensor fusion", "countermeasure mapping"],
+    },
+    {
+      icon: "🗡",
+      title: "Red Team / Assessments",
+      desc: "Scope UAS penetration testing engagements using DARTA tactics as a checklist. Reference technique IDs in findings reports for unambiguous, framework-aligned documentation.",
+      tags: ["pentest scoping", "findings reports", "TTP coverage", "threat modeling"],
+    },
+    {
+      icon: "📊",
+      title: "Threat Intelligence",
+      desc: "Annotate CTI reports and incident timelines with DARTA technique IDs. Build actor profiles keyed to actor tier (L1–L3) and platform scope for structured threat libraries.",
+      tags: ["CTI annotation", "actor profiling", "incident mapping", "structured reporting"],
+    },
+    {
+      icon: "🏭",
+      title: "Manufacturer / Developer",
+      desc: "Run DARTA-based threat modeling during UAS design reviews. Map mitigations to countermeasure IDs and track coverage across product lines and firmware versions.",
+      tags: ["threat modeling", "design review", "security by design", "SBOM linkage"],
+    },
+  ];
+
+  const snippets = {
+    curl: `# Fetch the DARTA JSON directly
+curl -O https://darta-framework.org/darta.json
+
+# Filter techniques for a specific platform (using jq)
+curl -s https://darta-framework.org/darta.json \\
+  | jq '[.tactics[].techniques[] | select(.platforms[] == "military")]'`,
+
+    python: `import json, urllib.request
+
+# Load DARTA from local file or URL
+with open("darta.json") as f:
+    darta = json.load(f)
+
+# Iterate all techniques with tactic context
+for tactic in darta["tactics"]:
+    for tech in tactic["techniques"]:
+        print(f"{tech['id']}  [{tactic['name']}]  {tech['name']}")
+        print(f"  Platforms : {', '.join(tech['platforms'])}")
+        print(f"  Actor min : {tech['actor_min']}")
+
+# Get all L1-accessible techniques (opportunistic attacker)
+l1_techs = [
+    t for tac in darta["tactics"]
+      for t in tac["techniques"]
+      if t["actor_min"] == "L1"
+]
+print(f"\\n{len(l1_techs)} techniques accessible to L1 actors")`,
+
+    sigma: `# Sigma detection rule referencing DARTA technique IDs
+title: MAVLink Unauthenticated Command Injection
+status: experimental
+description: >
+  Detects potential MAVLink command injection attempts.
+  DARTA: T003.001 – RF Command Link Hijacking (TA003 Initial Access)
+tags:
+  - darta.technique.T003.001
+  - darta.tactic.TA003
+  - darta.platform.consumer
+  - darta.actor_min.L2
+logsource:
+  product: uas_gcs
+  service: mavlink
+detection:
+  selection:
+    message_type:
+      - 'SET_MODE'
+      - 'COMMAND_LONG'
+    source_system_id|not: 255   # 255 = legitimate GCS
+  condition: selection
+falsepositives:
+  - Legitimate companion computer commands
+level: high`,
+
+    stix: `// STIX 2.1 Attack Pattern object referencing DARTA
+{
+  "type": "attack-pattern",
+  "spec_version": "2.1",
+  "id": "attack-pattern--<uuid>",
+  "name": "RF Command Link Hijacking",
+  "description": "Exploitation of RF control channels to inject commands or seize C2 link.",
+  "external_references": [
+    {
+      "source_name": "DARTA",
+      "external_id": "T003.001",
+      "url": "https://darta-framework.org"
+    },
+    {
+      "source_name": "DARTA tactic",
+      "external_id": "TA003",
+      "description": "Initial Access"
+    }
+  ],
+  "x_darta_platforms": ["consumer", "enterprise", "military"],
+  "x_darta_actor_min": "L2"
+}`,
+  };
+
+  const schemaFields = [
+    { path: "framework.version", type: "string", desc: "Semantic version — validate before consuming" },
+    { path: "tactics[].id", type: "string", desc: "Tactic identifier (TA001–TA009)" },
+    { path: "tactics[].techniques[].id", type: "string", desc: "Technique identifier (T00X.00Y)" },
+    { path: "tactics[].techniques[].platforms", type: "string[]", desc: "Platform scope: consumer, enterprise, military, gcs, utm, swarm, all" },
+    { path: "tactics[].techniques[].actor_min", type: "string", desc: "Minimum adversary tier: L1, L2, or L3" },
+    { path: "tactics[].techniques[].sub_techniques", type: "string[]", desc: "Ordered list of sub-technique name strings" },
+    { path: "countermeasures[].id", type: "string", desc: "Countermeasure identifier (CM-001–CM-013)" },
+    { path: "countermeasures[].tactic_ids", type: "string[]", desc: "Tactic IDs this control addresses" },
+    { path: "countermeasures[].refs", type: "string[]", desc: "Regulatory and standard references" },
+  ];
+
+  return (
+    <div className="section" style={{paddingTop:"5rem"}}>
+      <div className="section-header">
+        <div className="section-label">Integration</div>
+        <h2 className="section-title">Integrate DARTA</h2>
+        <p className="section-desc">DARTA is released as a machine-readable JSON artifact for direct integration into cyber range platforms, SIEM/SOC tooling, C-UAS systems, red team workflows, and threat intelligence pipelines.</p>
+      </div>
+
+      {/* Download hero */}
+      <div className="integrate-hero">
+        <div className="integrate-hero-text">
+          <div className="integrate-hero-title">darta.json — Machine-Readable Framework</div>
+          <div className="integrate-hero-desc">
+            The complete DARTA framework in a single structured JSON file: all tactics, techniques, sub-techniques, platform scopes, actor tiers, countermeasures, and standard references. CC-BY-4.0 licensed — free to use, redistribute, and integrate.
+          </div>
+          <div className="integrate-hero-actions">
+            <a className="btn-primary" href="/darta.json" download style={{textDecoration:"none", display:"inline-block"}}>
+              ↓ Download darta.json
+            </a>
+            <a className="btn-secondary" href="/darta.json" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none", display:"inline-block"}}>
+              View raw ↗
+            </a>
+          </div>
+          <div className="integrate-url">
+            <span>GET</span>
+            https://darta-framework.org/darta.json
+          </div>
+        </div>
+        <div style={{fontFamily:"var(--mono)", fontSize:"11px", color:"var(--text3)", lineHeight:"2", flexShrink:0}}>
+          {[
+            ["tactics", "9"],
+            ["techniques", "57"],
+            ["sub_techniques", "228"],
+            ["countermeasures", "13"],
+            ["platforms", "6"],
+            ["actor_tiers", "3"],
+            ["license", "CC-BY-4.0"],
+            ["version", "0.1.0"],
+          ].map(([k,v]) => (
+            <div key={k}><span style={{color:"var(--text2)"}}>{k}</span>: <span style={{color:"var(--accent)"}}>{v}</span></div>
+          ))}
+        </div>
+      </div>
+
+      {/* Use cases */}
+      <div style={{marginBottom:"1rem"}}>
+        <div className="section-label">Use Cases</div>
+      </div>
+      <div className="use-case-grid" style={{marginBottom:"3rem"}}>
+        {useCases.map(uc => (
+          <div key={uc.title} className="use-case-card">
+            <div className="use-case-icon">{uc.icon}</div>
+            <div className="use-case-title">{uc.title}</div>
+            <div className="use-case-desc">{uc.desc}</div>
+            <div className="use-case-tags">
+              {uc.tags.map(t => <span key={t} className="use-case-tag">{t}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Code snippets */}
+      <div style={{marginBottom:"1rem"}}>
+        <div className="section-label">Code Examples</div>
+      </div>
+      <div style={{marginBottom:"3rem"}}>
+        <div className="snippet-tabs">
+          {[
+            {id:"curl", label:"cURL / jq"},
+            {id:"python", label:"Python"},
+            {id:"sigma", label:"Sigma"},
+            {id:"stix", label:"STIX 2.1"},
+          ].map(s => (
+            <button key={s.id} className={`snippet-tab ${activeSnippet === s.id ? "active" : ""}`}
+              onClick={() => setActiveSnippet(s.id)}>
+              {s.label}
+            </button>
+          ))}
+        </div>
+        <div className="snippet-block">{snippets[activeSnippet]}</div>
+      </div>
+
+      {/* Schema reference */}
+      <div style={{marginBottom:"1rem"}}>
+        <div className="section-label">Schema Reference</div>
+      </div>
+      <div style={{background:"var(--bg2)", border:"1px solid var(--border)", borderRadius:"12px", overflow:"hidden", marginBottom:"3rem"}}>
+        <table className="schema-table">
+          <thead>
+            <tr>
+              <th>Field path</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schemaFields.map(f => (
+              <tr key={f.path}>
+                <td>{f.path}</td>
+                <td>{f.type}</td>
+                <td>{f.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* License note */}
+      <div style={{background:"rgba(74,158,255,0.05)", border:"1px solid rgba(74,158,255,0.15)", borderRadius:"10px", padding:"1.5rem", display:"flex", gap:"1rem", alignItems:"flex-start"}}>
+        <div style={{fontFamily:"var(--mono)", fontSize:"18px", flexShrink:0}}>©</div>
+        <div>
+          <div style={{fontWeight:"700", marginBottom:"0.4rem"}}>CC-BY-4.0 License</div>
+          <div style={{fontSize:"13px", color:"var(--text2)", lineHeight:"1.7"}}>
+            You are free to use, adapt, and redistribute DARTA in any product or publication, including commercial integrations, provided you attribute the source as <strong style={{color:"var(--text)"}}>DARTA by Giorgio Campiotti (darta-framework.org)</strong>. No derivative work may imply endorsement by the original author.
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── ABOUT VIEW ───────────────────────────────────────────────────────────────
 function AboutView() {
   return (
@@ -1087,6 +1400,15 @@ function AboutView() {
           <div className="about-card" style={{marginBottom:"1rem"}}>
             <div className="about-card-title">Who is it for?</div>
             <div className="about-card-text">Security engineers conducting UAS threat models, red teams scoping drone security assessments, standards bodies developing UAS cybersecurity regulations, manufacturers implementing security by design, and operators assessing their exposure across civil and military contexts.</div>
+          </div>
+          <div className="about-card" style={{marginBottom:"1rem"}}>
+            <div className="about-card-title">Machine-Readable JSON</div>
+            <div className="about-card-text" style={{marginBottom:"1rem"}}>
+              As of v0.1, DARTA is published as a structured JSON artifact alongside the PDF document. <code style={{fontFamily:"var(--mono)", fontSize:"12px", color:"var(--accent)", background:"var(--bg3)", padding:"0.1em 0.4em", borderRadius:"3px"}}>darta.json</code> contains the complete framework — all tactics, techniques, sub-techniques, platform scopes, actor tiers, and countermeasures — for direct integration into cyber range platforms, SOC tooling, SIEM detection pipelines, C-UAS systems, and red team workflows. CC-BY-4.0 licensed.
+            </div>
+            <a className="btn-secondary" href="/darta.json" download style={{textDecoration:"none", display:"inline-block", fontSize:"13px", padding:"0.5rem 1.2rem"}}>
+              ↓ Download darta.json
+            </a>
           </div>
           <div className="about-card">
             <div className="about-card-title">Disclaimer</div>
@@ -1111,11 +1433,17 @@ function AboutView() {
           </div>
           <div className="about-card">
             <div className="about-card-title">Download</div>
-            <div className="about-card-text" style={{marginBottom:"1rem"}}>DARTA v0.1 is available as a structured Word document with complete tactics, techniques, countermeasures, regulatory landscape, and usage guide.</div>
-            <a className="btn-primary" style={{width:"100%", display:"block", textAlign:"center", textDecoration:"none"}}
-              href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.pdf" download>
-              ↓ Download DARTA v0.1 (.pdf)
-            </a>
+            <div className="about-card-text" style={{marginBottom:"1.25rem"}}>DARTA v0.1 is available as a PDF document with complete tactics, techniques, countermeasures, regulatory landscape, and usage guide — and as a machine-readable JSON artifact for tooling integration.</div>
+            <div style={{display:"flex", flexDirection:"column", gap:"0.6rem"}}>
+              <a className="btn-primary" style={{width:"100%", display:"block", textAlign:"center", textDecoration:"none"}}
+                href="https://raw.githubusercontent.com/Giorgiofox/darta/main/docs/DARTA_v0.1.pdf" download>
+                ↓ Download DARTA v0.1 (.pdf)
+              </a>
+              <a className="btn-secondary" style={{width:"100%", display:"block", textAlign:"center", textDecoration:"none"}}
+                href="/darta.json" download>
+                ↓ Download darta.json
+              </a>
+            </div>
           </div>
         </div>
       </div>
