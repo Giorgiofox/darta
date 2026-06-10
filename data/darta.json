@@ -149,8 +149,8 @@
   ],
   "statistics": {
     "tactics": 9,
-    "techniques": 57,
-    "sub_techniques": 228,
+    "techniques": 53,
+    "sub_techniques": 198,
     "countermeasures": 13,
     "platforms": 5,
     "actor_tiers": 3

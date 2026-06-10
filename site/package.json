@@ -2,11 +2,11 @@
   "name": "darta-site",
   "version": "0.1.0",
   "private": true,
-  "description": "DARTA — Drone Attack Research and Tactic Analysis — Web Navigator",
+  "description": "DARTA \u2014 Drone Attack Research and Tactic Analysis \u2014 Web Navigator",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

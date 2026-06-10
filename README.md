@@ -33,8 +33,8 @@ The framework is structurally modeled on MITRE ATT&CK and The Aerospace Corporat
 |---|---|
 | Version | 0.1 Draft |
 | Tactics | 9 |
-| Techniques | 57 |
-| Sub-Techniques | 228 |
+| Techniques | 53 |
+| Sub-Techniques | 198 |
 | Countermeasures | 13 |
 | Platform Scopes | 5 |
 | Threat Actor Tiers | 3 |

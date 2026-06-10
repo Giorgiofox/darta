@@ -18,7 +18,7 @@ _Changes staged for the next release will be listed here._
 
 - Initial framework release for community review.
 - Nine tactical phases: Reconnaissance, Resource Development, Initial Access, Execution, Persistence, Defense Evasion, Lateral Movement, Collection and Exfiltration, Impact.
-- 57 techniques with 228 sub-techniques covering all defined platform scopes.
+- 53 techniques with 198 sub-techniques covering all defined platform scopes.
 - Five platform scope categories: Consumer, Enterprise, Military, GCS/UTM, Swarm/Autonomous.
 - Three adversary tier definitions: L1 Opportunistic, L2 Technically Capable, L3 Nation-State/Advanced.
 - 13 countermeasures with mappings to NIST SP 800-53 Rev 5, DO-326A/ED-202A, ASTM F38, STANAG 4586, IEC 62443, EU U-Space Regulation, EU Cyber Resilience Act, NIS2 Directive.
