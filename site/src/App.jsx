@@ -522,7 +522,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="footer-logo">DARTA</div>
-        <div className="footer-text">Drone Attack Research and Tactic Analysis by <a href="https://giorgiocampiotti.com" target="_blank" rel="me author noopener noreferrer" style={{color:"var(--text2)"}}>Giorgio Campiotti</a> — v1.1 — April 2026</div>
+        <div className="footer-text">Drone Attack Research and Tactic Analysis by <a href="https://giorgiocampiotti.com" target="_blank" rel="me author noopener noreferrer" style={{color:"var(--text2)"}}>Giorgio Campiotti</a> — v1.1 — June 2026</div>
         <div className="footer-badge">UNCLASSIFIED — FOR RESEARCH AND EDUCATIONAL PURPOSES</div>
       </footer>
     </div>
