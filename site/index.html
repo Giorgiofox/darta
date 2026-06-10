@@ -4,12 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Security (CSP injected at build time — see vite.config.js) -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <!-- Primary meta -->
     <title>DARTA — Drone Attack Research and Tactic Analysis</title>
     <meta name="description" content="DARTA is an open-source TTP framework for Unmanned Aerial Systems cybersecurity. 9 tactics, 57 techniques, 228 sub-techniques, 13 countermeasures. Free JSON artifact for SOC, cyber range, and C-UAS integration." />
     <meta name="keywords" content="UAS security, drone cybersecurity, UAV threats, TTP framework, DARTA, drone attack, MAVLink, GNSS spoofing, counter-UAS, C-UAS, cyber range, SOC, SIEM, ATT&CK for drones, unmanned systems, UAS TTPs" />
     <meta name="author" content="Giorgio Campiotti" />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#080C14" />
     <link rel="canonical" href="https://darta-framework.org/" />
 
     <!-- Open Graph -->
@@ -18,33 +26,81 @@
     <meta property="og:title" content="DARTA — Drone Attack Research and Tactic Analysis" />
     <meta property="og:description" content="Open-source TTP framework for UAS cybersecurity. 9 tactics, 57 techniques, 228 sub-techniques. Machine-readable JSON for SOC, cyber range, and C-UAS integration. CC-BY-4.0." />
     <meta property="og:site_name" content="DARTA Framework" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://darta-framework.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="DARTA — Drone Attack Research and Tactic Analysis. 9 tactics, 57 techniques, 228 sub-techniques, 13 countermeasures." />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="DARTA — Drone Attack Research and Tactic Analysis" />
     <meta name="twitter:description" content="Open-source TTP framework for UAS cybersecurity. 9 tactics, 57 techniques, 228 sub-techniques. Machine-readable JSON for SOC, cyber range, and C-UAS integration." />
     <meta name="twitter:creator" content="@giorgiocampiotti" />
+    <meta name="twitter:image" content="https://darta-framework.org/og-image.png" />
 
     <!-- JSON-LD structured data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "TechArticle",
-      "name": "DARTA — Drone Attack Research and Tactic Analysis",
-      "description": "An open-source structured TTP framework for Unmanned Aerial Systems cybersecurity covering consumer, enterprise, military, GCS, UTM, and swarm platforms.",
-      "version": "1.1.0",
-      "datePublished": "2026-03-24",
-      "dateModified": "2026-04-01",
-      "author": {
-        "@type": "Person",
-        "name": "Giorgio Campiotti"
-      },
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "url": "https://darta-framework.org",
-      "keywords": [
-        "UAS security", "drone cybersecurity", "TTP framework",
-        "counter-UAS", "MAVLink security", "GNSS spoofing",
-        "unmanned aerial systems", "cyber range", "SOC integration"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://darta-framework.org/#website",
+          "url": "https://darta-framework.org/",
+          "name": "DARTA Framework",
+          "description": "DARTA — Drone Attack Research and Tactic Analysis. Open-source TTP framework for Unmanned Aerial Systems cybersecurity.",
+          "publisher": { "@id": "https://giorgiocampiotti.com/#person" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://giorgiocampiotti.com/#person",
+          "name": "Giorgio Campiotti",
+          "url": "https://giorgiocampiotti.com",
+          "sameAs": [
+            "https://giorgiocampiotti.com",
+            "https://github.com/Giorgiofox"
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://darta-framework.org/#framework",
+          "headline": "DARTA — Drone Attack Research and Tactic Analysis",
+          "name": "DARTA — Drone Attack Research and Tactic Analysis",
+          "description": "An open-source structured TTP framework for Unmanned Aerial Systems cybersecurity covering consumer, enterprise, military, GCS, UTM, and swarm platforms.",
+          "version": "1.1.0",
+          "datePublished": "2026-03-24",
+          "dateModified": "2026-06-10",
+          "image": "https://darta-framework.org/og-image.png",
+          "author": { "@id": "https://giorgiocampiotti.com/#person" },
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "url": "https://darta-framework.org",
+          "isPartOf": { "@id": "https://darta-framework.org/#website" },
+          "keywords": [
+            "UAS security", "drone cybersecurity", "TTP framework",
+            "counter-UAS", "MAVLink security", "GNSS spoofing",
+            "unmanned aerial systems", "cyber range", "SOC integration"
+          ]
+        },
+        {
+          "@type": "Dataset",
+          "@id": "https://darta-framework.org/darta.json#dataset",
+          "name": "DARTA Framework — Machine-Readable JSON",
+          "description": "The complete DARTA framework as a structured JSON artifact: 9 tactics, 57 techniques, 228 sub-techniques, 13 countermeasures, platform scopes, actor tiers, and standard references. For integration into cyber range platforms, SIEM/SOC tooling, C-UAS systems, and threat intelligence pipelines.",
+          "url": "https://darta-framework.org/darta.json",
+          "version": "1.1.0",
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "creator": { "@id": "https://giorgiocampiotti.com/#person" },
+          "isAccessibleForFree": true,
+          "encodingFormat": "application/json",
+          "distribution": {
+            "@type": "DataDownload",
+            "contentUrl": "https://darta-framework.org/darta.json",
+            "encodingFormat": "application/json"
+          },
+          "keywords": ["UAS TTPs", "drone attack techniques", "counter-UAS dataset", "SIEM enrichment", "STIX", "Sigma"]
+        }
       ]
     }
     </script>
@@ -53,6 +109,24 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <h1>DARTA — Drone Attack Research and Tactic Analysis</h1>
+      <p>
+        DARTA is an open-source TTP framework for Unmanned Aerial Systems cybersecurity,
+        created by <a href="https://giorgiocampiotti.com">Giorgio Campiotti</a>.
+        It catalogs 9 tactics, 57 techniques, and 228 sub-techniques covering consumer drones,
+        enterprise UAS, military tactical systems, GCS and UTM infrastructure, and autonomous swarms,
+        with 13 countermeasures mapped to NIST SP 800-53, DO-326A, ASTM F38, and EU regulations.
+      </p>
+      <p>
+        Tactics: Reconnaissance, Resource Development, Initial Access, Execution, Persistence,
+        Defense Evasion, Lateral Movement, Collection &amp; Exfiltration, Impact.
+      </p>
+      <p>
+        Download the machine-readable framework: <a href="/darta.json">darta.json</a> (CC-BY-4.0).
+        This site requires JavaScript for the interactive matrix navigator.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

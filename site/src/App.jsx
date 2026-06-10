@@ -674,6 +674,15 @@ const css = `
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
 
+const VIEW_TITLES = {
+  home: "DARTA — Drone Attack Research and Tactic Analysis",
+  matrix: "Matrix — DARTA Framework",
+  tactics: "Tactics — DARTA Framework",
+  countermeasures: "Countermeasures — DARTA Framework",
+  integrate: "Integrate — DARTA Framework",
+  about: "About — DARTA Framework",
+};
+
 export default function App() {
   const [view, setView] = useState("home");
   const [activeTactic, setActiveTactic] = useState(null);
@@ -688,6 +697,49 @@ export default function App() {
     document.head.appendChild(style);
     return () => document.head.removeChild(style);
   }, []);
+
+  // Hash routing: every view, tactic, and technique gets a shareable deep link
+  useEffect(() => {
+    const applyHash = () => {
+      const h = window.location.hash.replace(/^#\/?/, "");
+      const [seg, id] = h.split("/");
+      if (seg === "tactics" && id) {
+        const t = TACTICS.find(tt => tt.id === id);
+        if (t) {
+          setActiveTactic(t); setActiveTechnique(null); setView("tactic");
+          document.title = `${t.id} ${t.name} — DARTA Framework`;
+          window.scrollTo(0, 0);
+          return;
+        }
+      }
+      if (seg === "techniques" && id) {
+        for (const tac of TACTICS) {
+          const te = tac.techniques.find(tt => tt.id === id);
+          if (te) {
+            setActiveTactic(tac);
+            setActiveTechnique({ ...te, tacticId: tac.id, tacticName: tac.name, tacticColor: tac.color });
+            setView("technique");
+            document.title = `${te.id} ${te.name} — DARTA Framework`;
+            window.scrollTo(0, 0);
+            return;
+          }
+        }
+      }
+      const v = ["matrix", "tactics", "countermeasures", "integrate", "about"].includes(seg) ? seg : "home";
+      setActiveTactic(null); setActiveTechnique(null); setView(v);
+      document.title = VIEW_TITLES[v];
+      window.scrollTo(0, 0);
+    };
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
+  const navigate = (path) => {
+    const target = path ? `#/${path}` : "";
+    if (window.location.hash === target || (!target && !window.location.hash)) return;
+    window.location.hash = path ? `/${path}` : "/";
+  };
 
   const totalTechs = TACTICS.reduce((s, t) => s + t.techniques.length, 0);
   const totalSubs = TACTICS.reduce((s, t) => s + t.techniques.reduce((ss, tt) => ss + tt.subs.length, 0), 0);
@@ -707,26 +759,18 @@ export default function App() {
     { id: "about", label: "About" },
   ];
 
-  const goToTactic = (tactic) => {
-    setActiveTactic(tactic);
-    setActiveTechnique(null);
-    setView("tactic");
-  };
-
-  const goToTechnique = (tech, tactic) => {
-    setActiveTechnique({ ...tech, tacticId: tactic.id, tacticName: tactic.name, tacticColor: tactic.color });
-    setView("technique");
-  };
+  const goToTactic = (tactic) => navigate(`tactics/${tactic.id}`);
+  const goToTechnique = (tech) => navigate(`techniques/${tech.id}`);
 
   return (
     <div>
       {/* NAV */}
       <nav className="nav">
-        <div className="nav-logo" onClick={() => setView("home")}>DARTA</div>
+        <div className="nav-logo" onClick={() => navigate("")}>DARTA</div>
         <div className="nav-links">
           {navItems.map(n => (
             <button key={n.id} className={`nav-btn ${view === n.id || (view === "tactic" && n.id === "tactics") || (view === "technique" && n.id === "tactics") ? "active" : ""}`}
-              onClick={() => { setView(n.id); setActiveTactic(null); setActiveTechnique(null); }}>
+              onClick={() => navigate(n.id === "home" ? "" : n.id)}>
               {n.label}
             </button>
           ))}
@@ -738,11 +782,11 @@ export default function App() {
       </nav>
 
       {/* VIEWS */}
-      {view === "home" && <HomeView goToMatrix={() => setView("matrix")} goToTactics={() => setView("tactics")} totalTechs={totalTechs} totalSubs={totalSubs} goToTactic={goToTactic} />}
+      {view === "home" && <HomeView goToMatrix={() => navigate("matrix")} goToTactics={() => navigate("tactics")} totalTechs={totalTechs} totalSubs={totalSubs} goToTactic={goToTactic} />}
       {view === "matrix" && <MatrixView selectedTech={selectedTech} setSelectedTech={setSelectedTech} filterPlatform={filterPlatform} setFilterPlatform={setFilterPlatform} filterActor={filterActor} setFilterActor={setFilterActor} isTechVisible={isTechVisible} goToTactic={goToTactic} goToTechnique={goToTechnique} />}
       {view === "tactics" && <TacticsView goToTactic={goToTactic} />}
-      {view === "tactic" && activeTactic && <TacticDetailView tactic={activeTactic} goBack={() => setView("tactics")} goToTechnique={goToTechnique} />}
-      {view === "technique" && activeTechnique && <TechniqueDetailView tech={activeTechnique} goBack={() => { setView("tactic"); }} countermeasures={COUNTERMEASURES.filter(c => c.tacticIds.includes(activeTechnique.tacticId))} />}
+      {view === "tactic" && activeTactic && <TacticDetailView tactic={activeTactic} goBack={() => navigate("tactics")} goToTechnique={goToTechnique} />}
+      {view === "technique" && activeTechnique && <TechniqueDetailView tech={activeTechnique} goBack={() => navigate(`tactics/${activeTechnique.tacticId}`)} countermeasures={COUNTERMEASURES.filter(c => c.tacticIds.includes(activeTechnique.tacticId))} />}
       {view === "countermeasures" && <CountermeasuresView />}
       {view === "integrate" && <IntegrateView />}
       {view === "about" && <AboutView />}
@@ -750,7 +794,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="footer-logo">DARTA</div>
-        <div className="footer-text">Drone Attack Research and Tactic Analysis by Giorgio Campiotti — v1.1 — April 2026</div>
+        <div className="footer-text">Drone Attack Research and Tactic Analysis by <a href="https://giorgiocampiotti.com" target="_blank" rel="me author noopener noreferrer" style={{color:"var(--text2)"}}>Giorgio Campiotti</a> — v1.1 — April 2026</div>
         <div className="footer-badge">UNCLASSIFIED — FOR RESEARCH AND EDUCATIONAL PURPOSES</div>
       </footer>
     </div>
@@ -1382,7 +1426,7 @@ function AboutView() {
       <div className="section-header">
         <div className="section-label">Framework</div>
         <h2 className="section-title">About DARTA</h2>
-        <p className="section-desc">Drone Attack Research and Tactic Analysis by Giorgio Campiotti — an open-source TTP framework for the UAS cybersecurity community.</p>
+        <p className="section-desc">Drone Attack Research and Tactic Analysis by <a href="https://giorgiocampiotti.com" target="_blank" rel="me author noopener noreferrer" style={{color:"var(--accent)", textDecoration:"none", borderBottom:"1px solid rgba(74,158,255,0.4)"}}>Giorgio Campiotti</a> — an open-source TTP framework for the UAS cybersecurity community.</p>
       </div>
       <div className="about-grid">
         <div>
