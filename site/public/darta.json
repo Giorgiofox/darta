@@ -7,7 +7,7 @@
     "release_date": "2026-04-01",
     "description": "A structured TTP framework for Unmanned Aerial Systems cybersecurity.",
     "license": "CC-BY-4.0",
-    "url": "https://darta-framework.org"
+    "url": "https://www.darta-framework.org"
   },
   "platforms": [
     { "id": "consumer",   "name": "Consumer / Hobbyist UAS" },

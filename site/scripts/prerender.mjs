@@ -11,7 +11,7 @@ import { TACTICS, COUNTERMEASURES, ACTOR_LABELS } from "../src/data.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = resolve(ROOT, "dist");
-const ORIGIN = "https://darta-framework.org";
+const ORIGIN = "https://www.darta-framework.org";
 const LASTMOD = new Date().toISOString().slice(0, 10);
 const AUTHOR_URL = "https://giorgiocampiotti.com";
 

@@ -939,10 +939,10 @@ function IntegrateView() {
 
   const snippets = {
     curl: `# Fetch the DARTA JSON directly
-curl -O https://darta-framework.org/darta.json
+curl -O https://www.darta-framework.org/darta.json
 
 # Filter techniques for a specific platform (using jq)
-curl -s https://darta-framework.org/darta.json \\
+curl -s https://www.darta-framework.org/darta.json \\
   | jq '[.tactics[].techniques[] | select(.platforms[] == "military")]'`,
 
     python: `import json, urllib.request
@@ -1002,7 +1002,7 @@ level: high`,
     {
       "source_name": "DARTA",
       "external_id": "T003.001",
-      "url": "https://darta-framework.org"
+      "url": "https://www.darta-framework.org"
     },
     {
       "source_name": "DARTA tactic",
@@ -1052,7 +1052,7 @@ level: high`,
           </div>
           <div className="integrate-url">
             <span>GET</span>
-            https://darta-framework.org/darta.json
+            https://www.darta-framework.org/darta.json
           </div>
         </div>
         <div style={{fontFamily:"var(--mono)", fontSize:"11px", color:"var(--text3)", lineHeight:"2", flexShrink:0}}>

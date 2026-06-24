@@ -1,0 +1,5 @@
+# Canonical host is www. Redirect bare apex -> www (301).
+# Requires apex (darta-framework.org) to be added as a custom domain on the
+# Cloudflare Pages project so requests actually reach this site; until then the
+# apex has no DNS and never hits these rules.
+https://darta-framework.org/* https://www.darta-framework.org/:splat 301!
